@@ -1,0 +1,17 @@
+{
+    "manifest_version" : 3,
+    "name" : "InspoQuotes",
+    "description" : "InspoQuotes sends you notifications of inspirational quotes said by historical figures, it sends it to you via notifications and at a time interval set by you",
+    "version" : "1.0",
+    "action" :{
+        "default_popup" : "popup.html" 
+    },
+    "background":{
+        "service_worker":"background.js"
+    },
+    "permissions" : [
+        "notifications",
+        "alarms",
+        "storage"
+    ]
+}

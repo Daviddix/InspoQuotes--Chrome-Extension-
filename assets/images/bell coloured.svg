@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 15 15">
+  <defs>
+    <rect id="rect-1" width="15" height="15" x="0" y="0"/>
+    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="userSpaceOnUse">
+      <rect width="15" height="15" x="0" y="0" fill="black"/>
+      <use fill="white" xlink:href="#rect-1"/>
+    </mask>
+    <path id="path-3" fill-rule="evenodd" d="M11.25 5c0-2.07106781-1.67893219-3.75-3.75-3.75-2.07106781 0-3.75 1.67893219-3.75 3.75 0 4.375-1.875 5.625-1.875 5.625h11.25S11.25 9.375 11.25 5"/>
+  </defs>
+  <g>
+    <use fill="none" xlink:href="#rect-1"/>
+    <g mask="url(#mask-2)">
+      <g>
+        <use fill="rgb(255,211,24)" xlink:href="#path-3"/>
+        <use fill-opacity="0" stroke="rgb(230,180,30)" stroke-dasharray="0 0 0 0" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" xlink:href="#path-3"/>
+      </g>
+      <path fill="none" stroke="rgb(230,180,30)" stroke-dasharray="0 0 0 0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.58125 13.125c-.2236236.38550272-.63558212.62278517-1.08125.62278517S6.6423736 13.51050272 6.41875 13.125"/>
+    </g>
+  </g>
+</svg>
