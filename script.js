@@ -1,5 +1,5 @@
 const intervalDivs = document.querySelectorAll(".intervals >div")
-const categoryDivs = document.querySelectorAll(".categories-container > div")
+const categoryDivs = document.querySelectorAll(".categories-container > div:not(.show-more)")
 let categoriesContainer = document.querySelector(".categories-container")
 const showMoreButton = document.querySelector(".show-more")
 const extras = document.querySelectorAll(".extra")
@@ -12,9 +12,55 @@ let categoriesFromLocalStorage = []
 let intervalFromLocalStorage = ""
 let active = false
 
-// chrome.runtime.onMessage.addListener((message)=>{
-//     console.log(message)
-// })
+
+
+refillDataFromLocalStorage()
+getThemeFromLocalStorage()
+
+
+function refillDataFromLocalStorage(){
+    chrome.storage.local.get(["intervalFromLocalStorage"])
+    .then((result)=>{
+        if(result.intervalFromLocalStorage){
+            intervalFromLocalStorage = result.intervalFromLocalStorage
+
+            intervalDivs.forEach((div)=>{
+                if (div.dataset.value == result.intervalFromLocalStorage) {
+                    classRemoverForDivs(intervalDivs)
+                    div.classList.add("selected")
+                }
+            })
+        }
+    })
+
+
+    chrome.storage.local.get(["categoriesFromLocalStorage"])
+    .then((result)=>{
+        if(result.categoriesFromLocalStorage){
+            categoriesFromLocalStorage = result.categoriesFromLocalStorage
+            categories = categoriesFromLocalStorage
+
+            categoriesFromLocalStorage.map((category)=>{
+                categoryDivs.forEach((div)=>{
+                    if (div.firstElementChild.innerText == category) {
+                        div.classList.add("selected")
+                    }
+                })
+            })
+            
+        }
+    })
+
+    chrome.storage.local.get(["active"])
+    .then((result) => {
+        if(result.active && result.active == true){            
+            active = result.active
+            submitButton.innerHTML = `<p> Stop Inspiring Me🙁</p>`
+            disableButtons(categoryDivs)
+            disableButtons(intervalDivs)
+        }
+    })
+}
 
 function getThemeFromLocalStorage(){
     chrome.storage.local.get(["theme"])
@@ -25,55 +71,6 @@ function getThemeFromLocalStorage(){
         }
     })
 }
-
-function getStatusFromLocalStorage(){
-    chrome.storage.local.get(["quotesStatus", "interval", "categories"])
-    .then((result) =>{
-    if(result.quotesStatus == "active"){
-    active = true
-    submitButton.innerHTML = `<p> Stop Inspiring Me🙁</p>`
-    disableButtons(categoryDivs)
-    disableButtons(intervalDivs)
-    }
-    })
-    
-}
-
-function refillDataFromLocalStorage(){
-    chrome.storage.local.get("categoriesFromLocalStorage") 
-    .then((result)=>{
-        if (result.categoriesFromLocalStorage) {
-            categoriesFromLocalStorage = result.categoriesFromLocalStorage
-
-            categoryDivs.forEach((div)=>{
-                categoriesFromLocalStorage.map((category)=>{
-                    if (div.firstElementChild.innerText === category) {
-                        div.classList.add("selected")
-                    }
-                })
-            })
-        }
-    })
-
-
-    chrome.storage.local.get("intervalFromLocalStorage")
-    .then((result)=>{
-        if (result.intervalFromLocalStorage) {
-            intervalFromLocalStorage = result.intervalFromLocalStorage
-
-            intervalDivs.forEach((div)=>{
-                if (div.dataset.value == intervalFromLocalStorage) {
-                    classRemoverForDivs(intervalDivs)
-                    div.classList.add("selected")
-                }
-            })
-        }
-    })
-}
-
-getStatusFromLocalStorage()
-getThemeFromLocalStorage()
-refillDataFromLocalStorage()
 
 
 function classRemoverForDivs(divsNodelist){
@@ -131,12 +128,12 @@ intervalDivs.forEach((div)=>{
     div.addEventListener("click", ()=>{
         classRemoverForDivs(intervalDivs)
         classAdderForDivs(div)
-        interval = div.dataset.value
+        interval = parseInt(div.dataset.value)
         chrome.storage.local.set({intervalFromLocalStorage: interval})
     })
 })
 
-categoryDivs.forEach((div)=>{  
+categoryDivs.forEach((div)=>{    
     div.addEventListener("click", (e)=>{
         if (e.currentTarget.classList.contains("selected") 
         ){
@@ -145,10 +142,10 @@ categoryDivs.forEach((div)=>{
             category !== div.firstElementChild.textContent
          )
          chrome.storage.local.set({categoriesFromLocalStorage:categories})
-        } else {
-            classAdderForDivs(div)
+        } else { 
+        classAdderForDivs(div)
          categories.push(div.firstElementChild.textContent)
-         chrome.storage.local.set({categoriesFromLocalStorage:categories})
+         chrome.storage.local.set({categoriesFromLocalStorage:categories})  
         }
     })
 }
@@ -178,20 +175,19 @@ submitButton.addEventListener("click", (e)=>{
     disableButtons(categoryDivs)
     disableButtons(intervalDivs)
     chrome.runtime.sendMessage({quotesSettings})
-    chrome.storage.local.set({quotesStatus: "active", interval: interval, categories: categories})
+    chrome.storage.local.set({active : active})
     } 
-    else{
+    else if(active == true){
         chrome.runtime.sendMessage("stop-app")
         active = false
         enableButtons(categoryDivs)
         enableButtons(intervalDivs)
         e.currentTarget.innerHTML = `<p>Inspire Me</p>
         <img src="/assets/images/bell coloured.svg">`
-        chrome.storage.local.set({quotesStatus: "inactive"})
         classRemoverForDivs(categoryDivs)
-        chrome.storage.local.set({categoriesFromLocalStorage:[]})
-        chrome.storage.local.set({intervalFromLocalStorage:"30"})
-        classRemoverForDivs(intervalDivs)
-        intervalDivs[0].classList.add("selected")
+        chrome.storage.local.set({active : active})
+        refillDataFromLocalStorage()
     }
 })
+
+// chrome.storage.local.clear()

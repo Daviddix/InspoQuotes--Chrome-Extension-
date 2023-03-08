@@ -6,12 +6,9 @@ const notificationOptions = {
     priority: 1
 }
 
-chrome.runtime.onInstalled.addListener(()=>{
-
-})
-
 chrome.runtime.onMessage.addListener((message)=>{
     if (message.quotesSettings) {
+        console.log(message.quotesSettings.interval)
          chrome.alarms.create(
             "new inspoQuotes", 
             {periodInMinutes : .2})
