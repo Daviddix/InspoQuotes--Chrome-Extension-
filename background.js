@@ -2,8 +2,14 @@ chrome.runtime.onMessage.addListener((message)=>{
     if (message.quotesSettings) {
     const categories = message.quotesSettings.categories
     let i = 0
+    let url
 
-    const url = `https://api.api-ninjas.com/v1/quotes?category=${categories[i]}`
+    if (categories.length == 1 && categories[0] == "Random") {
+        url = `https://api.api-ninjas.com/v1/quotes`
+    }else{
+        url = `https://api.api-ninjas.com/v1/quotes?category=${categories[i]}`
+    }
+    
     const headers = {"X-Api-Key" : "gJY8u11Am0dTYp9oq0G5Lg==ILAKhRRxmPrPKKVs", "Content-Type" : "application/json"}
 
         chrome.alarms.create(
