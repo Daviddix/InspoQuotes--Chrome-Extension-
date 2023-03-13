@@ -110,6 +110,31 @@ function enableButtons(nodeList){
     })
 }
 
+function startApp(){
+    active = true
+       quotesSettings = {
+        interval: interval,
+        categories : categories
+    } 
+    submitButton.innerHTML = `<p> Stop Inspiring Me🙁</p>`
+    disableButtons(categoryDivs)
+    disableButtons(intervalDivs)
+    chrome.runtime.sendMessage({quotesSettings})
+    chrome.storage.local.set({active : active})
+}
+
+function stopApp(){
+    chrome.runtime.sendMessage("stop-app")
+    active = false
+    enableButtons(categoryDivs)
+    enableButtons(intervalDivs)
+    submitButton.innerHTML = `<p>Inspire Me</p>
+    <img src="/assets/images/bell coloured.svg">`
+    classRemoverForDivs(categoryDivs)
+    chrome.storage.local.set({active : active})
+    refillDataFromLocalStorage()
+}
+
 themeSwitcher.addEventListener("click", (e)=>{
     if (document.body.classList.contains("dark")) {
     e.currentTarget.src = "/assets/images/moon.svg"
@@ -165,27 +190,10 @@ submitButton.addEventListener("click", (e)=>{
         alert("Please select at least one category")
     }
     else if(categories.length > 0 && active == false){
-        active = true
-       quotesSettings = {
-        interval: interval,
-        categories : categories
-    } 
-    e.currentTarget.innerHTML = `<p> Stop Inspiring Me🙁</p>`
-    disableButtons(categoryDivs)
-    disableButtons(intervalDivs)
-    chrome.runtime.sendMessage({quotesSettings})
-    chrome.storage.local.set({active : active})
+    startApp()
     } 
     else if(active == true){
-        chrome.runtime.sendMessage("stop-app")
-        active = false
-        enableButtons(categoryDivs)
-        enableButtons(intervalDivs)
-        e.currentTarget.innerHTML = `<p>Inspire Me</p>
-        <img src="/assets/images/bell coloured.svg">`
-        classRemoverForDivs(categoryDivs)
-        chrome.storage.local.set({active : active})
-        refillDataFromLocalStorage()
+    stopApp()
     }
 })
 

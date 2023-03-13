@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener((message)=>{
 
     chrome.alarms.onAlarm.addListener(()=>{
         if (categories.length == 1 && categories[0] == "Random") {
-            url = `https://api.api-ninjas.com/v1/quotes`
+            url = `https://api.api-ninjas.com/v1/quotes?category=&limit=10`
         }else{
             url = `https://api.api-ninjas.com/v1/quotes?category=${categories[i]}&limit=10`
         }
@@ -57,4 +57,5 @@ chrome.runtime.onMessage.addListener((message)=>{
         chrome.alarms.clearAll()
     }
 })
+
 
