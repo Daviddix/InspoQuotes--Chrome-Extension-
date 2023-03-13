@@ -72,7 +72,6 @@ function getThemeFromLocalStorage(){
     })
 }
 
-
 function classRemoverForDivs(divsNodelist){
     divsNodelist.forEach((div)=>{
         div.classList.remove("selected")
