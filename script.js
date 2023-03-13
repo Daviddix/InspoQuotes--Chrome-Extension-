@@ -202,5 +202,3 @@ submitButton.addEventListener("click", (e)=>{
     stopApp()
     }
 })
-
-// chrome.storage.local.clear()

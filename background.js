@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((message)=>{
     let shortQuotes = []
     const headers = {"X-Api-Key" : "gJY8u11Am0dTYp9oq0G5Lg==ILAKhRRxmPrPKKVs", "Content-Type" : "application/json"}
 
-    chrome.alarms.create("new inspoQuotes", {periodInMinutes : interval})
+    chrome.alarms.create("new inspoQuotes", {periodInMinutes : .2})
 
     if (categories.includes("Random") === true) {
        chrome.alarms.onAlarm.addListener(()=>{
@@ -39,7 +39,7 @@ chrome.runtime.onMessage.addListener((message)=>{
         .catch((err)=>{
             chrome.alarms.clearAll()
             chrome.runtime.sendMessage("turnAppOff");
-            console.log("an error occured");
+            console.log(err);
         })       
     })
     }else if(categories.includes("Random") === false){
@@ -77,9 +77,13 @@ chrome.runtime.onMessage.addListener((message)=>{
         .catch((err)=>{
             chrome.alarms.clearAll()
             chrome.runtime.sendMessage("turnAppOff");
-            console.log("an error occured");
+            console.log(err);
         })       
     })
       
     }}
+
+    else if(message == "stop-app"){
+        chrome.alarms.clearAll()
+    }
 })
