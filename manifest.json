@@ -8,6 +8,11 @@
     },
     "background":{
         "service_worker":"background.js"
+    },    
+    "icons":{
+        "16" : "assets/images/glow.png",
+        "32" : "assets/images/glow.png",
+        "64" : "assets/images/logo-64.png"
     },
     "permissions" : [
         "notifications",

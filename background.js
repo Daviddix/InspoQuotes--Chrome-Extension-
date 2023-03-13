@@ -1,12 +1,13 @@
 chrome.runtime.onMessage.addListener((message)=>{
     if (message.quotesSettings) {
     const categories = message.quotesSettings.categories
+    const interval = message.quotesSettings.interval
     let i = 0
     let url
     let shortQuotes = []
     const headers = {"X-Api-Key" : "gJY8u11Am0dTYp9oq0G5Lg==ILAKhRRxmPrPKKVs", "Content-Type" : "application/json"}
 
-    chrome.alarms.create("new inspoQuotes", {periodInMinutes : .2})
+    chrome.alarms.create("new inspoQuotes", {periodInMinutes : interval})
 
     if (categories.includes("Random") === true) {
        chrome.alarms.onAlarm.addListener(()=>{
@@ -28,7 +29,7 @@ chrome.runtime.onMessage.addListener((message)=>{
             title:`${shortQuotes[num].author} - ${shortQuotes[num].category}`,
             message: shortQuotes[num].quote,
             type:"basic",
-            iconUrl: "/assets/images/test.jpeg",
+            iconUrl: "/assets/images/logo-64.png",
             priority: 1
         })
         }else{
@@ -64,7 +65,7 @@ chrome.runtime.onMessage.addListener((message)=>{
             title:`${shortQuotes[num].author} - ${shortQuotes[num].category}`,
             message: shortQuotes[num].quote,
             type:"basic",
-            iconUrl: "/assets/images/test.jpeg",
+            iconUrl: "/assets/images/logo-64.png",
             priority: 1
         })
         
@@ -82,4 +83,3 @@ chrome.runtime.onMessage.addListener((message)=>{
       
     }}
 })
-
