@@ -37,6 +37,7 @@ chrome.runtime.onMessage.addListener((message)=>{
         })
         .catch((err)=>{
             chrome.alarms.clearAll()
+            chrome.runtime.sendMessage("turnAppOff");
             console.log("an error occured");
         })       
     })
@@ -74,15 +75,11 @@ chrome.runtime.onMessage.addListener((message)=>{
         })
         .catch((err)=>{
             chrome.alarms.clearAll()
+            chrome.runtime.sendMessage("turnAppOff");
             console.log("an error occured");
         })       
     })
       
-    }
-      
-    }else{
-        chrome.alarms.clearAll()
-        chrome.runtime.sendMessage("turn-app-off");
-    }
+    }}
 })
 

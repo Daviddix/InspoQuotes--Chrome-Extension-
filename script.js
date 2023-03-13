@@ -17,6 +17,12 @@ let active = false
 refillDataFromLocalStorage()
 getThemeFromLocalStorage()
 
+chrome.runtime.onMessage.addListener((message)=>{
+    if (message && message === "turnAppOff") {
+        stopApp()
+    }
+})
+
 
 function refillDataFromLocalStorage(){
     chrome.storage.local.get(["intervalFromLocalStorage"])
