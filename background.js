@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener((message)=>{
         chrome.notifications.create(
         `inspoQuote ${Date.now()}`,
         {
-            title:`${shortQuotes[num].author} - ${shortQuotes[num].category}`,
+            title:`${shortQuotes[num]?.author} - ${shortQuotes[num].category}`,
             message: shortQuotes[num].quote,
             type:"basic",
             iconUrl: "/assets/images/logo-64.png",
@@ -62,7 +62,7 @@ chrome.runtime.onMessage.addListener((message)=>{
         chrome.notifications.create(
         `inspoQuote ${Date.now()}`,
         {
-            title:`${shortQuotes[num].author} - ${shortQuotes[num].category}`,
+            title:`${shortQuotes[num]?.author} - ${shortQuotes[num].category}`,
             message: shortQuotes[num].quote,
             type:"basic",
             iconUrl: "/assets/images/logo-64.png",
