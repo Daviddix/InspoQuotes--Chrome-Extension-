@@ -2,7 +2,7 @@
     "manifest_version" : 3,
     "name" : "InspoQuotes",
     "description" : "Get inspirational quotes said by historical figures sent to you via notifications",
-    "version" : "1.0",
+    "version" : "1.01",
     "action" :{
         "default_popup" : "popup.html" 
     },
@@ -18,5 +18,6 @@
         "notifications",
         "alarms",
         "storage"
-    ]
+    ],
+    "host_permissions": ["https://api.api-ninjas.com/"]
 }

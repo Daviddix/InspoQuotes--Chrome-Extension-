@@ -10,6 +10,7 @@ chrome.runtime.onMessage.addListener((message)=>{
     chrome.alarms.create("new inspoQuotes", {periodInMinutes : interval})
 
     if (categories.includes("Random") === true) {
+        console.log("random dey");
        chrome.alarms.onAlarm.addListener(()=>{
         url = `https://api.api-ninjas.com/v1/quotes?category=&limit=10`
     
@@ -26,7 +27,8 @@ chrome.runtime.onMessage.addListener((message)=>{
         chrome.notifications.create(
         `inspoQuote ${Date.now()}`,
         {
-            title:`${shortQuotes[num]?.author} - ${shortQuotes[num].category}`,
+            title:`${shortQuotes[num]?.author} - ${shortQuotes[num]
+                ?.category}`,
             message: shortQuotes[num].quote,
             type:"basic",
             iconUrl: "/assets/images/logo-64.png",
