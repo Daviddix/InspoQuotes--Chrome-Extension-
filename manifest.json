@@ -2,7 +2,7 @@
     "manifest_version" : 3,
     "name" : "InspoQuotes",
     "description" : "Get inspirational quotes said by historical figures sent to you via notifications",
-    "version" : "1.02",
+    "version" : "1.03",
     "action" :{
         "default_popup" : "popup.html" 
     },

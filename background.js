@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((message)=>{
     let shortQuotes = []
     const headers = {"X-Api-Key" : "gJY8u11Am0dTYp9oq0G5Lg==ILAKhRRxmPrPKKVs", "Content-Type" : "application/json"}
 
-    chrome.alarms.create("new inspoQuotes", {periodInMinutes : .2})
+    chrome.alarms.create("new inspoQuotes", {periodInMinutes : interval})
 
     if (categories.includes("Random") === true) {
         console.log("random dey");
