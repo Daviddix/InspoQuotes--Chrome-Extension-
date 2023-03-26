@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener((message)=>{
     let shortQuotes = []
     const headers = {"X-Api-Key" : "gJY8u11Am0dTYp9oq0G5Lg==ILAKhRRxmPrPKKVs", "Content-Type" : "application/json"}
 
-    chrome.alarms.create("new inspoQuotes", {periodInMinutes : interval})
+    chrome.alarms.create("new inspoQuotes", {periodInMinutes : .2})
 
     if (categories.includes("Random") === true) {
         console.log("random dey");
@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener((message)=>{
         chrome.notifications.create(
         `inspoQuote ${Date.now()}`,
         {
-            title:`${shortQuotes[num]?.author} - ${shortQuotes[num].category}`,
+            title:`${shortQuotes[num]?.author} - ${shortQuotes[num]?.category}`,
             message: shortQuotes[num].quote,
             type:"basic",
             iconUrl: "/assets/images/logo-64.png",
